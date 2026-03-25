@@ -33,6 +33,3 @@ build/
 
 ### Mac OS ###
 .DS_Store
-
-### Maven local repository ###
-D:\soft\maven\depository/
