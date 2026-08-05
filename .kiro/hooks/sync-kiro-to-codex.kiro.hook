@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Sync .kiro to .codex",
+  "description": "当.kiro目录下的文件被修改时，自动将变更同步到.codex目录的对应位置。skills目录直接镜像复制，steering/01.基础知识.md的内容同步到根目录AGENTS.md。",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      ".kiro/**/*"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "刚才.kiro目录下的文件被修改了。请根据以下规则同步到.codex目录：\n1. 如果修改的是 .kiro/skills/ 下的文件，将同名文件复制到 .codex/skills/ 对应位置（保持目录结构一致）。\n2. 如果修改的是 .kiro/steering/01.基础知识.md，将其核心规则内容同步更新到项目根目录的 AGENTS.md（保持AGENTS.md已有的格式和结构，只更新规则内容）。\n3. 其他steering文件不需要同步到.codex。\n请直接执行同步，不需要确认。"
+  }
+}
