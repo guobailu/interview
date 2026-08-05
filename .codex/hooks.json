@@ -1,0 +1,18 @@
+{
+  "description": "Keep Kiro skills synchronized with Codex skills.",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "^(Bash|apply_patch|Edit|Write)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/bin/sh \"$(git rev-parse --show-toplevel)/.codex/hooks/sync-codex-to-kiro.sh\"",
+            "timeout": 15,
+            "statusMessage": "Syncing Codex skills to Kiro"
+          }
+        ]
+      }
+    ]
+  }
+}
