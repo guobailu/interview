@@ -20,4 +20,4 @@ JVM、Java 基础、数据结构与算法、线程、锁、集合、数据库、
 
 ## 项目 Skills
 
-`.codex/skills/` 下的 Skills 均为手动触发：只有当用户明确点名 Skill 的名称或目录名，或明确要求使用某个 Skill 时才使用；不要仅因任务看起来匹配而自动启用。
+`.codex/skills/` 下的 Skills 允许自动触发：当用户请求匹配某个 Skill 的 `description` 或正文中的“触发条件”时，自动使用对应 Skill；用户明确点名 Skill 名称或目录名时也应触发。
