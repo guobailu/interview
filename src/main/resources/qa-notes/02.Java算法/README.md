@@ -510,3 +510,67 @@ fn reverseHelper(seq, acc):
 ```
 
 这是尾递归版本，每次把 head 插到累加器前面，O(N) 完成。
+
+## 11. 文件每一行有4列数据，第1列是账号，第2列是性别，第3列是年龄，第4列是省份，用"｜"分隔，统计每个省份注册账号的数量，并按照降序输出
+
+```java
+import java.util.*;
+import java.io.*;
+
+/**
+ * 题目描述：
+ * 文件每行4列，以"|"分隔：账号|性别|年龄|省份
+ * 统计每个省份注册账号的数量，并按数量降序输出。
+ * 数量相同时按省份名字典序升序（保证结果稳定）。
+ */
+public class Solution {
+
+    // 核心算法：读文件统计省份计数，再按数量降序排序
+    public static List<Map.Entry<String, Integer>> countByProvince(BufferedReader br) throws IOException {
+        Map<String, Integer> countMap = new HashMap<>();
+        String line;
+        while ((line = br.readLine()) != null) {
+            if (line.isEmpty()) continue;
+            // 用split限制为4段，省份是第4列(索引3)
+            String[] cols = line.split("\\|", 4);
+            if (cols.length < 4) continue; // 脏数据跳过
+            String province = cols[3].trim();
+            if (province.isEmpty()) continue;
+            countMap.merge(province, 1, Integer::sum);
+        }
+
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(countMap.entrySet());
+        // 数量降序；数量相同按省份字典序升序
+        list.sort((a, b) -> {
+            if (!a.getValue().equals(b.getValue())) {
+                return b.getValue() - a.getValue();
+            }
+            return a.getKey().compareTo(b.getKey());
+        });
+        return list;
+    }
+
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
+
+        List<Map.Entry<String, Integer>> result = countByProvince(br);
+        for (Map.Entry<String, Integer> e : result) {
+            out.println(e.getKey() + "|" + e.getValue());
+        }
+
+        out.flush();
+        out.close();
+    }
+}
+```
+
+算法思想：一次遍历用HashMap按省份累加计数，再把entry按数量降序排序输出。
+
+具体步骤：逐行读取，按"|"分割取第4列省份，merge累加；统计完把map转list，按数量降序（并列时省份字典序）排序；顺序打印。
+
+时间复杂度：O(n + m log m)，n是行数，m是省份数（m很小，主要是O(n)）。
+
+空间复杂度：O(m)，只存省份计数。
+
+如果文件远超内存：省份是有限集合（几十个），HashMap本身放得下，直接单机流式读就行，不用分桶。若要加速超大文件，可多线程分块读、每块各自统计再合并（ForkJoinPool或并行流分段），最后归并计数map。
