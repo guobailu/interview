@@ -574,3 +574,96 @@ public class Solution {
 空间复杂度：O(m)，只存省份计数。
 
 如果文件远超内存：省份是有限集合（几十个），HashMap本身放得下，直接单机流式读就行，不用分桶。若要加速超大文件，可多线程分块读、每块各自统计再合并（ForkJoinPool或并行流分段），最后归并计数map。
+
+
+## 12. 一个九方格，都填了数字，给一个MN矩阵，从1开始逆时针打印这MN个数，要求时间复杂度尽可能低
+
+```java
+import java.util.*;
+import java.io.*;
+
+/**
+ * 题目描述：
+ * 给一个 M×N 矩阵，从左上角(1的位置)开始逆时针螺旋打印全部 M*N 个数。
+ * 逆时针顺序：向下 → 向右 → 向上 → 向左，逐层向内收缩。
+ * 要求时间复杂度尽可能低。
+ *
+ * 示例（3×3，九方格）：
+ * 1 2 3
+ * 4 5 6
+ * 7 8 9
+ * 逆时针输出：1 4 7 8 9 6 3 2 5
+ */
+public class Solution {
+
+    // 核心算法：四边界收缩法，逆时针遍历
+    public static List<Integer> spiralCounterClockwise(int[][] matrix) {
+        List<Integer> res = new ArrayList<>();
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return res;
+
+        int top = 0, bottom = matrix.length - 1;
+        int left = 0, right = matrix[0].length - 1;
+
+        while (top <= bottom && left <= right) {
+            // 1. 左列从上到下
+            for (int i = top; i <= bottom; i++) res.add(matrix[i][left]);
+            left++;
+
+            // 2. 底行从左到右
+            if (left > right) break;
+            for (int j = left; j <= right; j++) res.add(matrix[bottom][j]);
+            bottom--;
+
+            // 3. 右列从下到上
+            if (top > bottom) break;
+            for (int i = bottom; i >= top; i--) res.add(matrix[i][right]);
+            right--;
+
+            // 4. 顶行从右到左
+            if (left > right) break;
+            for (int j = right; j >= left; j--) res.add(matrix[top][j]);
+            top++;
+        }
+        return res;
+    }
+
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
+
+        // 第一行输入 M N
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int m = Integer.parseInt(st.nextToken());
+        int n = Integer.parseInt(st.nextToken());
+
+        int[][] matrix = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        List<Integer> res = spiralCounterClockwise(matrix);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < res.size(); i++) {
+            if (i > 0) sb.append(' ');
+            sb.append(res.get(i));
+        }
+        out.println(sb);
+
+        out.flush();
+        out.close();
+    }
+}
+```
+
+算法思想：维护上下左右四个边界，按"下→右→上→左"的顺序走完一圈就收缩一层，直到边界交叉。
+
+具体步骤：先沿左列自上而下走，left右移；再沿底行自左向右，bottom上移；再沿右列自下而上，right左移；最后沿顶行自右向左，top下移。每走完一条边都要判断边界是否已交叉，防止单行或单列时重复打印。
+
+时间复杂度：O(M*N)，每个元素只访问一次，这是理论下限，无法更低。
+
+空间复杂度：O(1) 额外空间（不算存结果的list），只用了四个边界变量。
+
+关键坑点：单行或单列的退化情况。比如 1×5 矩阵，走完第一步"左列"后 left++，接着走底行时若不判断 `left > right` 就会重复输出。四个方向各加一次边界检查即可。
