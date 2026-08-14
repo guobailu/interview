@@ -33,3 +33,17 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### 语雀文档本地缓存（含前公司内部资料，禁止提交）###
+.yuque-cache/
+.yuque-token
+
+### 工作经历提取缓存与项目经验库（含前公司内部信息，禁止提交）###
+.exp-cache/
+.private/
+
+### 语雀文档解析临时工作区（含前公司内部技术方案原文）###
+.scratch-yqC/
+
+### 工具脚本（含本地路径与语雀 namespace，不适合公开）###
+scripts/
