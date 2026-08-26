@@ -97,17 +97,19 @@ description: 面试前准备与面试后复盘的执行流程。当用户发来�
 
 ### 步骤 1：把本轮问答原样归档
 
-**归档位置**：`src/main/resources/qa-notes/`，与 `.kiro/skills/` 同构的目录树。按本轮实际用的 skill 选目录：
+**归档位置**：`src/main/resources/qa-notes/`。**按本轮回答该问题时实际命中的 skill 选目录**，不是按问题主题猜：
 
-| 本轮场景 | 归档到 |
+| 本轮命中的 skill | 归档到 |
 | --- | --- |
-| 岗位背景类提问 | `qa-notes/16.岗位背景/<公司名>/README.md` |
-| CTO 面 | `qa-notes/07.CTO面/README.md` |
-| HRBP 面 | `qa-notes/08.HRBP(不带案例)/README.md` 或 `09.HRBP(带案例)/README.md` |
-| 项目经验类 | `qa-notes/16.岗位背景/<公司名>/README.md` |
-| 架构设计、性能优化、算法、笔试等 | 对应同名目录的 `README.md` |
+| `04.项目经验`（含岗位与业务全景、系统构成、项目难点、数字追问） | `qa-notes/16.岗位背景/<公司名>/README.md` |
+| 无 skill 命中，靠 steering `01.基础知识` / `AGENTS.md` 的通用规则回答 | `qa-notes/01.基础知识/README.md` |
+| `07.CTO面` | `qa-notes/07.CTO面/README.md` |
+| `08.HRBP(不带案例)` / `09.HRBP(带案例)` | 对应同名目录的 `README.md` |
+| `06.架构设计`、`03.性能优化`、`05.系统设计`、算法与笔试各 skill | 对应同名目录的 `README.md` |
 
-跨多个场景就分别归档到各自目录，不要合并成一份。目标公司目录不存在时新建。
+只有 `04.项目经验` 按公司分目录，因为项目题的答法随目标岗位变，需要按公司留档；其余按 skill 归到同名目录，跨公司累积。
+
+跨多个 skill 的一轮面试，按每个问题各自命中的 skill 分别归档，不要合并成一份。公司目录不存在时新建。
 
 **格式照已有文件，不要另创**：
 
