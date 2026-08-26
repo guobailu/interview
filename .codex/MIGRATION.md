@@ -7,7 +7,6 @@
 - `.kiro/steering/01.基础知识.md` 对应项目根目录的 `AGENTS.md`，并在当前项目中全局生效。
 - `.codex/skills/` 与 `.kiro/skills/` 完全镜像：每个 Skill 均保留相同的目录名称、层级结构和 `SKILL.md` 内容。
 - Skills 的触发方式**以根目录 `AGENTS.md` 为准**（`AGENTS.md` 每轮进上下文，本文件只是说明文档、对行为无约束力）。当前规则是允许自动触发：请求匹配某个 Skill 的 `description` 或正文「触发条件」时自动使用，明确点名 Skill 名称或目录名时也触发。
-- 各 Skill 的入口宽窄由自己的 `description` 界定：会实际改动文件的流程类 Skill（如 `16.岗位背景/00.面试前准备与复盘`）入口刻意收窄，只认特定指令，避免误触发。
 
 ## 自动同步
 
