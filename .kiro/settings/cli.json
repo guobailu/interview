@@ -1,0 +1,10 @@
+{
+  "chat.modelDefaults": {
+    "claude-opus-5": {
+      "thinking": {
+        "type": "adaptive",
+        "display": "omitted"
+      }
+    }
+  }
+}
