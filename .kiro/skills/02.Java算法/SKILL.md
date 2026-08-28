@@ -12,26 +12,31 @@ description: 当用户提出算法相关的面试题目时激活此技能，直�
 - 使用Java语言实现
 - 追求最优的时间复杂度和空间复杂度
 - 使用中文注释，注释简洁明了
-- 使用main方法作为测试入口
-- 使用标准输入输出流（System.in / System.out）
+- **只写解题函数，不读标准输入、不打印结果给评测系统**——入参从方法签名进、结果 return 出去，跟 LeetCode 提交框里一样
+- main 方法只作本地自测入口，用硬编码用例调用解题函数并打印，**不要用 Scanner/BufferedReader 读 System.in**
 - 代码可直接编译运行
 - 类注释中需包含原始题目描述，方便复盘
+
+**题目要求自行处理标准输入输出（ACM 模式／OJ 提交）时，不走本技能，走 `02.Acm算法`。**
 
 ## 代码模板
 ```java
 import java.util.*;
-import java.io.*;
 
+/**
+ * 题目描述：xxx
+ */
 public class Solution {
-    // 核心算法实现
 
-    public static void main(String[] args) throws Exception {
-        // 使用BufferedReader/PrintWriter提升IO性能
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
-        // 读取输入、调用算法、输出结果
-        out.flush();
-        out.close();
+    // 核心算法实现：入参出参即题目签名
+    public int solve(int[] nums, int target) {
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        // 硬编码用例自测，含边界case
+        System.out.println(s.solve(new int[]{1, 2, 3}, 3));
     }
 }
 ```
@@ -47,7 +52,6 @@ public class Solution {
 
 ## 注意事项
 - 优先选择最优解法，如果有多种解法，先给最优解，再简要提及其他思路
-- IO密集型场景使用BufferedReader/PrintWriter替代Scanner
-- 大数据量场景考虑使用StreamTokenizer进一步优化IO
 - 涉及大数运算时考虑long溢出问题
-- 考虑边界条件和特殊case
+- 考虑边界条件和特殊case：空输入、单元素、重复元素、越界索引
+- IO 性能优化（BufferedReader、StreamTokenizer）属于 ACM 模式的事，本技能不涉及
